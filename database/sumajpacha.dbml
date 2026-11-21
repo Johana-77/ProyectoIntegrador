@@ -1,0 +1,97 @@
+// Modelo de datos SumajPachaDB (Sumaj Pacha - Yachay Chhalaku). Pegar en https://dbdiagram.io
+Table COMUNIDAD {
+  id_comunidad int [pk, increment]
+  nombre varchar(100) [not null]
+  distrito varchar(50)
+  municipio varchar(50) [not null]
+}
+Table PROYECTO {
+  id_proyecto int [pk, increment]
+  nombre varchar(150) [not null]
+  financiador varchar(100) [not null]
+  presupuesto decimal(12,2) [not null]
+  fecha_inicio date [not null]
+  fecha_fin date
+}
+Table CULTIVO {
+  id_cultivo int [pk, increment]
+  nombre varchar(50) [not null, unique]
+  dias_a_cosecha int [not null]
+  precio_ref_kg decimal(10,2) [not null]
+}
+Table USUARIO {
+  id_usuario int [pk, increment]
+  nombre varchar(100) [not null]
+  cargo varchar(100) [not null]
+  usuario varchar(50) [not null, unique]
+  contrasena_hash varchar(255) [not null, note: 'hash bcrypt']
+  rol varchar(20) [not null, note: 'ADMIN, TECNICO o CONSULTA']
+  activo bit [not null, default: 1]
+}
+Table FAMILIA {
+  id_familia int [pk, increment]
+  id_comunidad int [not null, ref: > COMUNIDAD.id_comunidad]
+  nombres varchar(100) [not null]
+  apellidos varchar(100) [not null]
+  sexo char(1) [not null]
+  fecha_nacimiento date [not null]
+  nro_miembros int [not null]
+  telefono varchar(20)
+  fecha_registro date [not null]
+  fecha_consentimiento date [not null]
+}
+Table PARCELA {
+  id_parcela int [pk, increment]
+  id_familia int [not null, ref: > FAMILIA.id_familia]
+  id_proyecto int [not null, ref: > PROYECTO.id_proyecto]
+  tipo varchar(20) [not null, note: 'HUERTO o SAF']
+  superficie_m2 decimal(8,2) [not null]
+  tiene_riego bit [not null, default: 0]
+  fecha_instalacion date [not null]
+}
+Table INSUMO {
+  id_insumo int [pk, increment]
+  id_cultivo int [ref: > CULTIVO.id_cultivo, note: 'solo plantines']
+  nombre varchar(100) [not null]
+  tipo varchar(20) [not null]
+  unidad_medida varchar(20) [not null]
+  costo_unitario decimal(10,2) [not null]
+  es_organico bit [not null, default: 1]
+}
+Table ENTREGA {
+  id_entrega int [pk, increment]
+  id_parcela int [not null, ref: > PARCELA.id_parcela]
+  id_insumo int [not null, ref: > INSUMO.id_insumo]
+  id_usuario int [not null, ref: > USUARIO.id_usuario]
+  fecha date [not null]
+  cantidad decimal(10,2) [not null]
+  anulado bit [not null, default: 0]
+}
+Table VISITA {
+  id_visita int [pk, increment]
+  id_parcela int [not null, ref: > PARCELA.id_parcela]
+  id_usuario int [not null, ref: > USUARIO.id_usuario]
+  fecha date [not null]
+  estado_parcela varchar(20) [not null]
+  observacion varchar(255)
+  anulado bit [not null, default: 0]
+}
+Table SEGUIMIENTO_CULTIVO {
+  id_seguimiento int [pk, increment]
+  id_visita int [not null, ref: > VISITA.id_visita]
+  id_cultivo int [not null, ref: > CULTIVO.id_cultivo]
+  plantas_vivas int [not null]
+  kg_cosechados decimal(10,2) [not null, default: 0]
+  indexes {
+    (id_visita, id_cultivo) [unique]
+  }
+}
+Table ALERTA {
+  id_alerta int [pk, increment]
+  id_visita int [not null, ref: > VISITA.id_visita]
+  supervivencia decimal(5,2) [not null]
+  umbral_aplicado decimal(5,2) [not null]
+  nivel_riesgo varchar(10) [not null, note: 'MEDIO o CRITICO']
+  fecha_generacion datetime [not null]
+  revisada bit [not null, default: 0]
+}
