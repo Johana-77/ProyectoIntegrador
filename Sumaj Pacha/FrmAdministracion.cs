@@ -14,5 +14,10 @@ namespace Sumaj_Pacha
         {
             InitializeComponent();
         }
+
+        private void FrmAdministracion_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
