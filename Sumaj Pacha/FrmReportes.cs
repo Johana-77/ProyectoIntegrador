@@ -14,5 +14,11 @@ namespace Sumaj_Pacha
         {
             InitializeComponent();
         }
+
+        private void FrmReportes_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
+///////////

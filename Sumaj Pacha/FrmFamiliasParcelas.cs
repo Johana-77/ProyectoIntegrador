@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Sumaj_Pacha
 {
+    // Solo diseño: la lógica (eventos y conexión a la base de datos) se agrega en el siguiente sprint.
     public partial class FrmFamiliasParcelas : Form
     {
         public FrmFamiliasParcelas()
