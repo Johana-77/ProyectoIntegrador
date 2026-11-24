@@ -1,4 +1,4 @@
-﻿namespace Sumaj_Pacha
+﻿namespace SumajPacha.Presentacion
 {
     partial class FrmEntregas
     {

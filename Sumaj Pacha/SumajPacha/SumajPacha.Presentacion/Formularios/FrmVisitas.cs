@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace Sumaj_Pacha
+namespace SumajPacha.Presentacion
 {
     // Solo diseño: la lógica (eventos y conexión a la base de datos) se agrega en el siguiente sprint.
-    public partial class FrmEntregas : Form
+    public partial class FrmVisitas : Form
     {
-        public FrmEntregas()
+        public FrmVisitas()
         {
             InitializeComponent();
         }

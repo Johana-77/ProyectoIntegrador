@@ -1,6 +1,6 @@
-﻿namespace Sumaj_Pacha
+﻿namespace SumajPacha.Presentacion
 {
-    partial class FrmFamiliasParcelas
+    partial class FrmFamilias
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -400,7 +400,7 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = false;
             // 
-            // FrmFamiliasParcelas
+            // FrmFamilias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
@@ -430,7 +430,7 @@
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "FrmFamiliasParcelas";
+            this.Name = "FrmFamilias";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Huertos Sumaj Pacha - Familias y parcelas";
             ((System.ComponentModel.ISupportInitialize)(this.numSuperficie)).EndInit();
