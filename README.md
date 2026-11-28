@@ -1,127 +1,101 @@
-# Sistema de Control de Materia Prima y Entregas del Desayuno Escolar de Yachay Chhalaku
+# Huertos Sumaj Pacha - Sistema de seguimiento de huertos familiares
 
-**Proyecto Integrador I – Grupo SolAndino**
+Aplicación de escritorio hecha en **C# (.NET 10 / Windows Forms)** con base de datos **SQL Server**, para la ONG **Yachay Chhalaku**. Sirve para registrar a las familias del proyecto Sumaj Pacha (Melga, Sacaba), sus parcelas, las entregas de plantines y abono y las visitas técnicas. Con eso el sistema calcula la supervivencia de las plantas y avisa cuando una parcela está en riesgo.
 
-Universidad Privada Franz Tamayo (UNIFRANZ) – Cochabamba, Bolivia – 2026
+**Proyecto Integrador I - Grupo SolAndino**
+Universidad Privada Franz Tamayo (UNIFRANZ) - Cochabamba, 2026
 
 ## Integrantes
 
-| Nombre completo | Rol |
-
+| Nombre | Rol |
+| :--- | :--- |
 | Johana Cándida Granado Huarcaya | Coordinación / Líder |
 | Mauricio Gabriel Terrazas Gómez | Comunicación con la institución |
 | José Antonio Paco Almanza | Diseño / UX |
 | Kevin René Vidal Pinto | Documentación / Analista |
 
-## Descripción del proyecto
+## Funcionalidades
 
-Yachay Chhalaku es una organización social de Tutimayu (Sacaba, Cochabamba) que forma jóvenes del Bachillerato Técnico Humanístico y entrega néctar de tumbo para el desayuno escolar del municipio de Sacaba.
+1. **Inicio de sesión y roles**
+   - Usuario, contraseña y rol. Después de 3 intentos fallidos el sistema se cierra.
+   - Roles: **Administrador** (todo), **Técnico** (registros y reportes) y **Consulta** (solo inicio y reportes).
 
-Hoy la recepción de materia prima y las entregas se registran en cuadernos, hojas de Excel sueltas y facturas, por lo que no se puede verificar si la materia prima fue la adecuada, y la conciliación con el GAMS y los informes se hacen a mano.
+2. **Familias y parcelas**
+   - Búsqueda de familias y registro de parcelas (huerto familiar o sistema agroforestal).
 
-Este proyecto propone una **aplicación de escritorio** (C# con Windows Forms y SQL Server) de registro y control de la materia prima y de las entregas del desayuno escolar, que genere indicadores de calidad (porcentaje de lotes conformes, merma en Bs e incidencias por proveedor) para la toma de decisiones.
+3. **Entregas de insumos**
+   - Registro de plantines (por unidad) y abono (en kg) para cada parcela.
+   - Las entregas no se borran, solo el administrador las puede anular.
 
-**Alcance:** solo control de materia prima y entregas. Seguimiento de estudiantes, egresados y emprendimientos queda como fase futura.
+4. **Visitas técnicas**
+   - Se registran las plantas vivas y los kg cosechados de cada cultivo.
+   - Supervivencia = plantas vivas / plantines entregados x 100.
+   - Si baja del 81% sale alerta media y si baja del 72% alerta alta.
 
-## Requerimientos funcionales
+5. **Panel principal**
+   - Indicadores generales, alertas de supervivencia y próximas visitas (cada 15 días).
 
-| ID | Requerimiento | Prioridad |
+6. **Reportes**
+   - Filtros por comunidad, sexo, edad y periodo. Se pueden exportar a Excel (CSV) y a PDF.
 
-| RF01 | Registrar cada lote de materia prima recibido (proveedor, producto, cantidad, fecha de vencimiento). | Alta |
-| RF02 | Registrar la inspección de cada lote como conforme, observado o rechazado, con motivo obligatorio si no es conforme. | Alta |
-| RF03 | Registrar las entregas del desayuno escolar (fecha, producto, cantidad, unidad educativa). | Alta |
-| RF04 | Calcular y mostrar indicadores de calidad: IC(t), merma en Bs e incidencias por proveedor. | Media |
-| RF05 | Generar reportes por rango de fechas y exportarlos en Excel o PDF. | Media |
-| RF06 | Gestionar usuarios, proveedores y catálogo de materia prima. | Media |
-| RF07 | Iniciar sesión, restringir funciones por rol y anular (no eliminar) registros. | Alta |
+7. **Administración**
+   - Usuarios (nuevo, editar, activar o desactivar), catálogo de cultivos y registros anulados.
 
-## Requerimientos no funcionales
+## Estructura del proyecto
 
-| Código | Atributo (ISO/IEC 25010:2023) | Requerimiento |
+- `SumajPacha/Modelos/`: clases del sistema (`Usuario`, `Familia`, `Parcela`, `Cultivo`, `Insumo`, `Entrega`, `Visita`, `ResumenCultivo`).
+- `SumajPacha/Datos/`: conexión a SQL Server (`Conexion`) y consultas a las tablas (`Datos`).
+- `SumajPacha/Negocio/`: cálculos de supervivencia y alertas (`Calculos`), sesión del usuario (`Sesion`) y contraseñas (`Seguridad`).
+- `SumajPacha/Formularios/`: pantallas (`FrmLogin`, `FrmPrincipal`, `FrmFamilias`, `FrmEntregas`, `FrmVisitas`, `FrmReportes`, `FrmAdministracion`, `FrmUsuario`).
+- `database/`: scripts de la base de datos y el diagrama (`sumajpacha.dbml`, se abre en [dbdiagram.io](https://dbdiagram.io)).
 
-| RNF-01 | Capacidad de interacción | Interfaz en español, comprensible para personal sin formación técnica (registro de un lote en ≤ 2 min). |
-| RNF-02 | Seguridad | Contraseñas con hash seguro con sal (bcrypt o Argon2). |
-| RNF-03 | Seguridad | Acceso restringido según el rol; solo el administrador anula registros. |
-| RNF-04 | Eficiencia de desempeño | Las pantallas de registro cargan en ≤ 5 s en una PC estándar. |
-| RNF-05 | Fiabilidad | Respaldo automático semanal de la base de datos en la nube. |
-| RNF-06 | Seguridad (integridad) | Anulación lógica (sin borrado físico) e integridad referencial con claves foráneas. |
-| RNF-07 | Seguridad (OWASP) | Seguir OWASP Top 10: validación de entradas, consultas parametrizadas y manejo seguro de sesiones. |
-| RNF-08 | Restricción de costo | Herramientas gratuitas: Visual Studio Community y SQL Server Express (licencias Bs 0). |
+## Cómo hacerlo funcionar
 
-## Tecnologías
+### 1. Crear la base de datos
 
-| Capa | Tecnología |
-|---|---|
-| Lenguaje | C# (.NET) |
-| Interfaz | Windows Forms (aplicación de escritorio) |
-| Base de datos | SQL Server |
-| Entorno de desarrollo | Visual Studio 2026 |
-| Control de versiones | Git y GitHub |
-| Gestión de tareas | Trello |
-| Comunicación / documentos | WhatsApp, Google Drive |
+En **SQL Server Management Studio** abrir y ejecutar (F5) los scripts de la carpeta `database` en este orden:
 
-### Cómo hacer correr la aplicación
+1. `01_crear_tablas.sql`: crea la base `SumajPachaDB` con sus 11 tablas.
+2. `02_insertar_datos.sql`: carga las familias, parcelas, entregas, visitas y usuarios.
 
-**Requisitos**
-- Windows 10/11
-- Visual Studio 2026 con la carga de trabajo **Desarrollo de escritorio de .NET**
-- SQL Server y SQL Server Management Studio (SSMS)
+El `03_consultas.sql` tiene las consultas de los reportes y no hace falta para que el sistema funcione.
 
-**Pasos**
+### 2. Revisar el nombre del servidor
 
-```bash
-# 1. Clonar el repositorio
-git clone https://github.com/Johana-77/ProyectoIntegrador.git
-cd ProyectoIntegrador
+En `SumajPacha/Datos/Conexion.cs` está el nombre del servidor:
 
-# 2. Cambiar a la rama de desarrollo
-git checkout develop
+```csharp
+public const string SERVIDOR = @".\SQLEXPRESS";
 ```
 
-3. **Crear la base de datos:** *(pendiente)*
-4. **Ejecutar la aplicación:** *(en desarrollo)* — se completará cuando esté lista la interfaz en Windows Forms.
+Si en su computadora el servidor tiene otro nombre (por ejemplo `.\SQLEXPRESS02` o `localhost\SQLEXPRESS`), hay que cambiarlo ahí.
 
-### Base de datos
+### 3. Ejecutar
 
-Modelo relacional con 10 entidades: `PROVEEDOR`, `MATERIA_PRIMA`, `LOTE`, `INSPECCION`, `USUARIO`, `REGISTRO_ACCESO`, `PRODUCCION`, `DETALLE_PRODUCCION`, `ENTREGA` y `UNIDAD_EDUCATIVA`. El `LOTE` es la entidad central: cada inspección y entrega se rastrea hasta el lote y el proveedor de origen.
+Abrir `SumajPacha.sln` en Visual Studio y presionar **F5**.
 
-```text
-Script de creación: (por definir, ej. /database/schema.sql)
-```
+## Usuarios
 
-### Comandos Git
+La base trae una cuenta inicial por cada rol. La contraseña de las tres es `1234`. En el login también se elige el rol.
 
-```bash
-git clone <url>                     # clonar el repositorio
-git checkout develop                # moverse a la rama develop
-git checkout -b feature/<nombre>    # crear una rama de trabajo
-git status                          # ver cambios
-git add .                           # preparar cambios
-git commit -m "mensaje claro"       # guardar cambios
-git pull origin develop             # traer cambios del equipo
-git push origin feature/<nombre>    # subir la rama
-git merge develop                   # integrar develop en la rama actual
-```
+| Usuario | Rol |
+| :--- | :--- |
+| `admin` | Administrador |
+| `tecnico` | Técnico |
+| `consulta` | Consulta |
 
-### Principios SOLID
+Solo el administrador puede crear cuentas, desde **Administración → Usuarios**. La idea es que cada trabajador de la ONG tenga su propia cuenta, así cada registro queda a nombre de quien lo hizo. Al instalar el sistema hay que cambiar la contraseña de `admin`.
 
-- **S** – Responsabilidad única: cada clase tiene un solo motivo para cambiar.
-- **O** – Abierto/cerrado: abierto a extensión, cerrado a modificación.
-- **L** – Sustitución de Liskov: las clases hijas pueden reemplazar a sus clases base.
-- **I** – Segregación de interfaces: interfaces pequeñas y específicas.
-- **D** – Inversión de dependencias: depender de abstracciones, no de implementaciones concretas.
+Los datos de las familias que trae la base son ficticios, para proteger la información personal de las familias. Los datos reales se cargarán con la información que entregue la ONG.
 
-### Pilares de la POO
+## Requisitos
 
-- **Abstracción**
-- **Encapsulamiento**
-- **Herencia**
-- **Polimorfismo**
+- Windows 10 u 11.
+- Visual Studio con la carga de trabajo **Desarrollo de escritorio de .NET**.
+- SQL Server Express y SQL Server Management Studio.
+- Paquete NuGet `Microsoft.Data.SqlClient` (Visual Studio lo descarga solo la primera vez que se compila).
 
-## Rama de trabajo
+## Organización del equipo
 
-La rama de desarrollo es **`develop`**.
-
-## Tablero Trello
-
-Tablero: **Proyecto I** – https://trello.com/b/CdyEFrdC
+- Rama de trabajo: `develop`.
+- Tablero de tareas en Trello: https://trello.com/b/CdyEFrdC
