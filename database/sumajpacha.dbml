@@ -12,7 +12,7 @@ Table PROYECTO {
   id_proyecto int [pk, increment]
   nombre varchar(150) [not null]
   financiador varchar(100) [not null]
-  presupuesto decimal(12,2) [not null]
+  presupuesto decimal(12,2) [note: 'NULL si la ONG no lo informa']
   fecha_inicio date [not null]
   fecha_fin date
 }
