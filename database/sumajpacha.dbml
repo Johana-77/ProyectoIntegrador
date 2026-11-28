@@ -1,10 +1,13 @@
-// Modelo de datos SumajPachaDB (Sumaj Pacha - Yachay Chhalaku). Pegar en https://dbdiagram.io
+// Diagrama de la base de datos SumajPachaDB - proyecto Sumaj Pacha
+// para verlo hay que pegar todo esto en https://dbdiagram.io
+
 Table COMUNIDAD {
   id_comunidad int [pk, increment]
   nombre varchar(100) [not null]
   distrito varchar(50)
   municipio varchar(50) [not null]
 }
+
 Table PROYECTO {
   id_proyecto int [pk, increment]
   nombre varchar(150) [not null]
@@ -13,33 +16,37 @@ Table PROYECTO {
   fecha_inicio date [not null]
   fecha_fin date
 }
+
 Table CULTIVO {
   id_cultivo int [pk, increment]
   nombre varchar(50) [not null, unique]
   dias_a_cosecha int [not null]
   precio_ref_kg decimal(10,2) [not null]
 }
+
 Table USUARIO {
   id_usuario int [pk, increment]
   nombre varchar(100) [not null]
   cargo varchar(100) [not null]
   usuario varchar(50) [not null, unique]
-  contrasena_hash varchar(255) [not null, note: 'hash bcrypt']
+  contrasena_hash varchar(255) [not null, note: 'hash SHA-256']
   rol varchar(20) [not null, note: 'ADMIN, TECNICO o CONSULTA']
   activo bit [not null, default: 1]
 }
+
 Table FAMILIA {
   id_familia int [pk, increment]
   id_comunidad int [not null, ref: > COMUNIDAD.id_comunidad]
   nombres varchar(100) [not null]
   apellidos varchar(100) [not null]
-  sexo char(1) [not null]
+  sexo char(1) [not null, note: 'F o M']
   fecha_nacimiento date [not null]
   nro_miembros int [not null]
   telefono varchar(20)
   fecha_registro date [not null]
   fecha_consentimiento date [not null]
 }
+
 Table PARCELA {
   id_parcela int [pk, increment]
   id_familia int [not null, ref: > FAMILIA.id_familia]
@@ -49,15 +56,17 @@ Table PARCELA {
   tiene_riego bit [not null, default: 0]
   fecha_instalacion date [not null]
 }
+
 Table INSUMO {
   id_insumo int [pk, increment]
-  id_cultivo int [ref: > CULTIVO.id_cultivo, note: 'solo plantines']
+  id_cultivo int [ref: > CULTIVO.id_cultivo, note: 'solo los plantines tienen cultivo']
   nombre varchar(100) [not null]
-  tipo varchar(20) [not null]
+  tipo varchar(20) [not null, note: 'PLANTIN, ABONO o BIOINSUMO']
   unidad_medida varchar(20) [not null]
   costo_unitario decimal(10,2) [not null]
   es_organico bit [not null, default: 1]
 }
+
 Table ENTREGA {
   id_entrega int [pk, increment]
   id_parcela int [not null, ref: > PARCELA.id_parcela]
@@ -66,16 +75,20 @@ Table ENTREGA {
   fecha date [not null]
   cantidad decimal(10,2) [not null]
   anulado bit [not null, default: 0]
+  id_usuario_anula int [ref: > USUARIO.id_usuario, note: 'quien la anulo']
+  fecha_anulacion datetime [note: 'cuando se anulo']
 }
+
 Table VISITA {
   id_visita int [pk, increment]
   id_parcela int [not null, ref: > PARCELA.id_parcela]
   id_usuario int [not null, ref: > USUARIO.id_usuario]
   fecha date [not null]
-  estado_parcela varchar(20) [not null]
+  estado_parcela varchar(20) [not null, note: 'BUENO, REGULAR o MALO']
   observacion varchar(255)
   anulado bit [not null, default: 0]
 }
+
 Table SEGUIMIENTO_CULTIVO {
   id_seguimiento int [pk, increment]
   id_visita int [not null, ref: > VISITA.id_visita]
@@ -86,6 +99,7 @@ Table SEGUIMIENTO_CULTIVO {
     (id_visita, id_cultivo) [unique]
   }
 }
+
 Table ALERTA {
   id_alerta int [pk, increment]
   id_visita int [not null, ref: > VISITA.id_visita]
