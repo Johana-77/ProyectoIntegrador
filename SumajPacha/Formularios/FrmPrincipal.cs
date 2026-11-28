@@ -74,7 +74,7 @@ namespace SumajPacha.Presentacion
             decimal rendimiento = 0;
             if (superficie > 0)
                 rendimiento = kgCosechados / superficie;
-            lblValorInd3.Text = rendimiento.ToString("0.0");
+            lblValorInd3.Text = rendimiento.ToString("0.000");
 
             double co2 = (double)kgCosechados * Calculos.FACTOR_CO2;
             lblValorInd4.Text = co2.ToString("0.0");
