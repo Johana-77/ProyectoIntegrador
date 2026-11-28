@@ -120,7 +120,7 @@
             // 
             this.tslUsuario.Name = "tslUsuario";
             this.tslUsuario.Size = new System.Drawing.Size(230, 17);
-            this.tslUsuario.Text = "Usuario: erodriguez (Administrador)";
+            this.tslUsuario.Text = "Usuario: admin (Administrador)";
             // 
             // pnlMenu
             // 
@@ -285,7 +285,7 @@
             this.lblSaludo.Name = "lblSaludo";
             this.lblSaludo.Size = new System.Drawing.Size(326, 28);
             this.lblSaludo.TabIndex = 2;
-            this.lblSaludo.Text = "Hola, Escarlem · Administrador";
+            this.lblSaludo.Text = "Hola, usuario · Rol";
             // 
             // pnlInd1
             // 

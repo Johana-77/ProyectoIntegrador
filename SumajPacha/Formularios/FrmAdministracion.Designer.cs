@@ -76,7 +76,7 @@
             this.lstInsumos = new System.Windows.Forms.ListBox();
             this.lblComunidades = new System.Windows.Forms.Label();
             this.lstComunidades = new System.Windows.Forms.ListBox();
-            this.lblNotaDirectora = new System.Windows.Forms.Label();
+            this.lblNotaAdmin = new System.Windows.Forms.Label();
             this.tabAdministracion.SuspendLayout();
             this.tabUsuarios.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
@@ -503,7 +503,7 @@
             // 
             this.pnlCatalogos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.pnlCatalogos.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlCatalogos.Controls.Add(this.lblNotaDirectora);
+            this.pnlCatalogos.Controls.Add(this.lblNotaAdmin);
             this.pnlCatalogos.Controls.Add(this.lstComunidades);
             this.pnlCatalogos.Controls.Add(this.lblComunidades);
             this.pnlCatalogos.Controls.Add(this.lstInsumos);
@@ -630,16 +630,16 @@
             this.lstComunidades.Size = new System.Drawing.Size(312, 60);
             this.lstComunidades.TabIndex = 6;
             // 
-            // lblNotaDirectora
+            // lblNotaAdmin
             // 
-            this.lblNotaDirectora.AutoSize = true;
-            this.lblNotaDirectora.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNotaDirectora.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
-            this.lblNotaDirectora.Location = new System.Drawing.Point(16, 480);
-            this.lblNotaDirectora.Name = "lblNotaDirectora";
-            this.lblNotaDirectora.Size = new System.Drawing.Size(232, 16);
-            this.lblNotaDirectora.TabIndex = 7;
-            this.lblNotaDirectora.Text = "Solo el administrador puede anular registros.";
+            this.lblNotaAdmin.AutoSize = true;
+            this.lblNotaAdmin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNotaAdmin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(120)))), ((int)(((byte)(120)))));
+            this.lblNotaAdmin.Location = new System.Drawing.Point(16, 480);
+            this.lblNotaAdmin.Name = "lblNotaAdmin";
+            this.lblNotaAdmin.Size = new System.Drawing.Size(232, 16);
+            this.lblNotaAdmin.TabIndex = 7;
+            this.lblNotaAdmin.Text = "Solo el administrador puede anular registros.";
             // 
             // FrmAdministracion
             // 
@@ -716,6 +716,6 @@
         private System.Windows.Forms.ListBox lstInsumos;
         private System.Windows.Forms.Label lblComunidades;
         private System.Windows.Forms.ListBox lstComunidades;
-        private System.Windows.Forms.Label lblNotaDirectora;
+        private System.Windows.Forms.Label lblNotaAdmin;
     }
 }
