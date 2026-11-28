@@ -16,8 +16,8 @@ ORDER BY F.id_familia;
 
 -- 2. supervivencia de cada parcela
 -- supervivencia = plantas vivas en la ultima visita / plantines entregados * 100
-SELECT T.id_parcela, T.entregados, T.vivas,
-       ROUND(T.vivas * 100.0 / T.entregados, 1) AS supervivencia
+SELECT T.id_parcela, CAST(T.entregados AS INT) AS entregados, T.vivas,
+       CAST(T.vivas * 100.0 / T.entregados AS DECIMAL(5,1)) AS supervivencia
 FROM (
     SELECT P.id_parcela,
         (SELECT SUM(E.cantidad)
@@ -64,7 +64,7 @@ GROUP BY T.rango_edad;
 -- ahorro = kg cosechados * precio de referencia del cultivo
 SELECT P.id_parcela, F.apellidos,
        SUM(S.kg_cosechados) AS kg_cosechados,
-       SUM(S.kg_cosechados) / P.superficie_m2 AS rendimiento_kg_m2,
+       CAST(SUM(S.kg_cosechados) / P.superficie_m2 AS DECIMAL(10,2)) AS rendimiento_kg_m2,
        SUM(S.kg_cosechados * C.precio_ref_kg) AS ahorro_bs
 FROM PARCELA P
 INNER JOIN FAMILIA F ON P.id_familia = F.id_familia
@@ -79,8 +79,8 @@ GROUP BY P.id_parcela, F.apellidos, P.superficie_m2;
 -- la urea tiene 20% de carbono y 1 kg de carbono son 44/12 kg de CO2
 DECLARE @urea_por_m2 DECIMAL(6,3) = 0.030;
 
-SELECT SUM(P.superficie_m2) * @urea_por_m2 AS urea_evitada_kg,
-       SUM(P.superficie_m2) * @urea_por_m2 * 0.20 * 44 / 12 AS co2_evitado_kg
+SELECT CAST(SUM(P.superficie_m2) * @urea_por_m2 AS DECIMAL(10,2)) AS urea_evitada_kg,
+       CAST(SUM(P.superficie_m2) * @urea_por_m2 * 0.20 * 44 / 12 AS DECIMAL(10,2)) AS co2_evitado_kg
 FROM PARCELA P
 WHERE P.id_parcela IN (SELECT E.id_parcela
                        FROM ENTREGA E
