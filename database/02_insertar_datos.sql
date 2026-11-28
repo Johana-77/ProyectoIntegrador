@@ -10,8 +10,10 @@ GO
 INSERT INTO COMUNIDAD (nombre, distrito, municipio)
 VALUES ('Melga', NULL, 'Sacaba');
 
-INSERT INTO PROYECTO (nombre, financiador, presupuesto, fecha_inicio)
-VALUES ('Sumaj Pacha', 'Por definir con la ONG', 100000, '2026-09-01');
+-- proyecto Sumaj Pacha, financiado por la CEI (2026 - 2028)
+-- el presupuesto es un dato que maneja la ONG, por eso queda en NULL
+INSERT INTO PROYECTO (nombre, financiador, presupuesto, fecha_inicio, fecha_fin)
+VALUES ('Sumaj Pacha', 'Conferencia Episcopal Italiana (CEI)', NULL, '2026-01-01', '2028-12-31');
 
 INSERT INTO CULTIVO (nombre, dias_a_cosecha, precio_ref_kg) VALUES
 ('Brócoli', 90, 4.00),
