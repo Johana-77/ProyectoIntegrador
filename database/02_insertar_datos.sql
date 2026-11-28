@@ -59,3 +59,55 @@ INSERT INTO PARCELA (id_familia, id_proyecto, tipo, superficie_m2, tiene_riego, 
 (8, 1, 'HUERTO', 150, 1, '2026-09-05'),
 (9, 1, 'HUERTO', 150, 1, '2026-09-05'),
 (10, 1, 'HUERTO', 150, 1, '2026-09-05');
+
+-- a cada parcela se le dio 40 plantines de cada cultivo y 4.5 kg de abono
+-- las entregas y las visitas las registro el usuario tecnico (id 2)
+INSERT INTO ENTREGA (id_parcela, id_insumo, id_usuario, fecha, cantidad) VALUES
+(1, 1, 2, '2026-09-05', 40), (1, 2, 2, '2026-09-05', 40), (1, 3, 2, '2026-09-05', 40), (1, 4, 2, '2026-09-05', 40), (1, 5, 2, '2026-09-05', 4.5),
+(2, 1, 2, '2026-09-05', 40), (2, 2, 2, '2026-09-05', 40), (2, 3, 2, '2026-09-05', 40), (2, 4, 2, '2026-09-05', 40), (2, 5, 2, '2026-09-05', 4.5),
+(3, 1, 2, '2026-09-05', 40), (3, 2, 2, '2026-09-05', 40), (3, 3, 2, '2026-09-05', 40), (3, 4, 2, '2026-09-05', 40), (3, 5, 2, '2026-09-05', 4.5),
+(4, 1, 2, '2026-09-05', 40), (4, 2, 2, '2026-09-05', 40), (4, 3, 2, '2026-09-05', 40), (4, 4, 2, '2026-09-05', 40), (4, 5, 2, '2026-09-05', 4.5),
+(5, 1, 2, '2026-09-05', 40), (5, 2, 2, '2026-09-05', 40), (5, 3, 2, '2026-09-05', 40), (5, 4, 2, '2026-09-05', 40), (5, 5, 2, '2026-09-05', 4.5),
+(6, 1, 2, '2026-09-05', 40), (6, 2, 2, '2026-09-05', 40), (6, 3, 2, '2026-09-05', 40), (6, 4, 2, '2026-09-05', 40), (6, 5, 2, '2026-09-05', 4.5),
+(7, 1, 2, '2026-09-05', 40), (7, 2, 2, '2026-09-05', 40), (7, 3, 2, '2026-09-05', 40), (7, 4, 2, '2026-09-05', 40), (7, 5, 2, '2026-09-05', 4.5),
+(8, 1, 2, '2026-09-05', 40), (8, 2, 2, '2026-09-05', 40), (8, 3, 2, '2026-09-05', 40), (8, 4, 2, '2026-09-05', 40), (8, 5, 2, '2026-09-05', 4.5),
+(9, 1, 2, '2026-09-05', 40), (9, 2, 2, '2026-09-05', 40), (9, 3, 2, '2026-09-05', 40), (9, 4, 2, '2026-09-05', 40), (9, 5, 2, '2026-09-05', 4.5),
+(10, 1, 2, '2026-09-05', 40), (10, 2, 2, '2026-09-05', 40), (10, 3, 2, '2026-09-05', 40), (10, 4, 2, '2026-09-05', 40), (10, 5, 2, '2026-09-05', 4.5);
+
+-- primera visita a cada parcela, un mes despues de la entrega
+INSERT INTO VISITA (id_parcela, id_usuario, fecha, estado_parcela, observacion) VALUES
+(1, 2, '2026-10-05', 'BUENO', 'Las plantas estan bien'),
+(2, 2, '2026-10-05', 'BUENO', NULL),
+(3, 2, '2026-10-05', 'BUENO', 'La familia riega todos los dias'),
+(4, 2, '2026-10-05', 'BUENO', 'Se recomendo poner mas abono'),
+(5, 2, '2026-10-05', 'BUENO', NULL),
+(6, 2, '2026-10-05', 'BUENO', NULL),
+(7, 2, '2026-10-05', 'REGULAR', 'Varias plantas se secaron, hay que revisar el riego'),
+(8, 2, '2026-10-05', 'BUENO', 'Buen avance'),
+(9, 2, '2026-10-05', 'BUENO', 'Algunas lechugas con pulgon'),
+(10, 2, '2026-10-05', 'BUENO', NULL);
+
+-- plantas vivas de cada cultivo en esa visita (todavia no hay cosecha)
+-- cultivos: 1 brocoli, 2 coliflor, 3 repollo, 4 lechuga
+INSERT INTO SEGUIMIENTO_CULTIVO (id_visita, id_cultivo, plantas_vivas, kg_cosechados) VALUES
+(1, 1, 36, 0), (1, 2, 36, 0), (1, 3, 36, 0), (1, 4, 35, 0),
+(2, 1, 38, 0), (2, 2, 38, 0), (2, 3, 37, 0), (2, 4, 37, 0),
+(3, 1, 39, 0), (3, 2, 38, 0), (3, 3, 38, 0), (3, 4, 38, 0),
+(4, 1, 36, 0), (4, 2, 35, 0), (4, 3, 35, 0), (4, 4, 35, 0),
+(5, 1, 36, 0), (5, 2, 36, 0), (5, 3, 36, 0), (5, 4, 35, 0),
+(6, 1, 39, 0), (6, 2, 39, 0), (6, 3, 38, 0), (6, 4, 38, 0),
+(7, 1, 31, 0), (7, 2, 31, 0), (7, 3, 30, 0), (7, 4, 30, 0),
+(8, 1, 39, 0), (8, 2, 38, 0), (8, 3, 38, 0), (8, 4, 38, 0),
+(9, 1, 36, 0), (9, 2, 36, 0), (9, 3, 36, 0), (9, 4, 35, 0),
+(10, 1, 35, 0), (10, 2, 35, 0), (10, 3, 34, 0), (10, 4, 34, 0);
+
+-- la parcela 7 quedo con 122 de 160 plantas = 76.25%, esta debajo del 81% entonces sale alerta
+INSERT INTO ALERTA (id_visita, supervivencia, umbral_aplicado, nivel_riesgo, fecha_generacion)
+VALUES (7, 76.25, 81, 'MEDIO', '2026-10-05');
+GO
+
+
+-- para ver que todo se cargo bien
+SELECT * FROM USUARIO;
+SELECT * FROM FAMILIA;
+SELECT * FROM PARCELA;
