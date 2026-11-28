@@ -39,11 +39,12 @@ CREATE TABLE COMUNIDAD (
 );
 
 -- proyectos de la ONG (por ahora solo esta Sumaj Pacha)
+-- el presupuesto puede quedar en NULL si la ONG no lo informa
 CREATE TABLE PROYECTO (
     id_proyecto INT IDENTITY(1,1) PRIMARY KEY,
     nombre VARCHAR(150) NOT NULL,
     financiador VARCHAR(100) NOT NULL,
-    presupuesto DECIMAL(12,2) NOT NULL CHECK (presupuesto >= 0),
+    presupuesto DECIMAL(12,2) NULL CHECK (presupuesto >= 0),
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NULL,
     CHECK (fecha_fin IS NULL OR fecha_fin >= fecha_inicio)
